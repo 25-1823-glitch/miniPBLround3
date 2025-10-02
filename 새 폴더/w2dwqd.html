@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>탐캔치 지원 페이지</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<style>
+* {margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif;}
+body {display:flex; background: linear-gradient(135deg, #ffe4e1, #fff0f5); min-height:100vh; transition: 0.3s;}
+main {flex:3; padding:50px; background:#fdfdfd; border-radius:25px; margin:20px; box-shadow:0 15px 40px rgba(0,0,0,0.1);}
+header{text-align:center; margin-bottom:40px;}
+header h1{font-size:38px; background: linear-gradient(90deg,#b22222,#ff6b6b); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-weight:700;}
+header p{margin-top:15px; font-size:17px; color:#666;}
+.features{display:flex; gap:25px; flex-wrap:wrap; justify-content:center;}
+.feature{flex:1; min-width:220px; background:#fff0f0; padding:25px; border-radius:20px; box-shadow:8px 8px 20px rgba(0,0,0,0.05), -8px -8px 20px rgba(255,255,255,0.7); text-align:center; transition: transform 0.3s, box-shadow 0.3s; cursor:pointer;}
+.feature:hover{transform: translateY(-10px); box-shadow: 12px 12px 25px rgba(0,0,0,0.08), -12px -12px 25px rgba(255,255,255,0.8);}
+.feature i{font-size:30px; color:#b22222; margin-bottom:12px; display:block;}
+.feature h3{margin-bottom:12px; color:#b22222; font-weight:600;}
+.feature p{font-size:15px; color:#555;}
+.testimonials{margin:50px 0; padding:30px; background:#fff5f5; border-radius:25px; box-shadow:0 10px 30px rgba(0,0,0,0.05); text-align:center;}
+.testimonials h2{color:#b22222; margin-bottom:20px; font-weight:700;}
+.testimonials p{font-style:italic; color:#555; margin-bottom:10px;}
+.cta{background: linear-gradient(135deg,#b22222,#ff6b6b); color:#fff; text-align:center; padding:50px 25px; border-radius:25px; margin:50px 0; box-shadow:0 15px 35px rgba(0,0,0,0.1); position:relative; overflow:hidden;}
+.cta h2{font-size:32px; margin-bottom:15px; font-weight:700;}
+.cta p{font-size:17px; margin-bottom:25px;}
+.cta button{padding:18px 40px; border:none; border-radius:50px; cursor:pointer; background:#b22222; color:#fff; font-size:17px; font-weight:600; transition: all 0.3s ease;}
+.cta button.active{background:#b22222; color:#fff;}
+.cta button:hover.active{background:#ff4d4d; transform: scale(1.05); box-shadow:0 8px 20px rgba(0,0,0,0.2);}
+footer{text-align:center; padding:30px; margin-top:40px; color:#555; font-size:14px;}
+aside{flex:1; background:#fff; padding:25px; border-radius:25px; margin:20px; box-shadow:10px 10px 30px rgba(0,0,0,0.08);}
+.sidebar-card{background:#fff5f5; padding:20px; margin-bottom:25px; border-radius:20px; text-align:left; box-shadow: inset 5px 5px 15px rgba(0,0,0,0.05), inset -5px -5px 15px rgba(255,255,255,0.6); transition: transform 0.3s, box-shadow 0.3s; cursor:pointer;}
+.sidebar-card:hover{transform: translateY(-5px); box-shadow:0 12px 25px rgba(0,0,0,0.08);}
+.sidebar-card h4{margin-bottom:12px; color:#b22222; font-weight:600;}
+.sidebar-card p{font-size:14px; color:#555;}
+.login-card{background: linear-gradient(180deg,#fff,#fff7f7); padding:18px; border-radius:16px; box-shadow:0 8px 18px rgba(0,0,0,0.06);}
+.login-card label{display:block; font-size:13px; margin-bottom:6px; color:#444;}
+.login-card input[type="text"], .login-card input[type="password"], .login-card input[type="email"], .login-card input[type="tel"]{width:100%; padding:10px 12px; border-radius:10px; border:1px solid #f0dede; margin-bottom:10px; outline:none;}
+.btn{padding:10px 12px; border-radius:10px; border:none; cursor:pointer; font-weight:600;}
+.btn-primary{background:#b22222; color:#fff;}
+.btn-ghost{background:transparent; border:1px solid #e7bcbc; color:#b22222;}
+.status{margin-top:12px; font-size:13px; color:#333;}
+.small{font-size:12px; color:#666;}
+#applicationForm{display:none; margin-top:30px; background:#fff0f0; padding:20px; border-radius:15px; box-shadow:5px 5px 20px rgba(0,0,0,0.1);}
+#applicationForm label{font-weight:bold; display:block; margin-top:10px; color:#b22222;}
+#applicationForm input, #applicationForm textarea, #applicationForm select{width:100%; padding:8px; margin-top:5px; box-sizing:border-box; border:2px solid #b22222; border-radius:5px; outline:none;}
+#applicationForm input:focus, #applicationForm textarea:focus, #applicationForm select:focus{border-color:#ff4d4d; box-shadow:0 0 5px rgba(178,34,34,0.5);}
+#applicationForm input[type="submit"]{background-color:#b22222; color:white; border:none; cursor:pointer; margin-top:15px; border-radius:8px;}
+#applicationForm input[type="submit"]:hover{background-color:#ff6b6b;}
+.toggle-btn{background:#eee; border:none; border-radius:8px; width:48%; cursor:pointer; padding:8px; margin-top:10px;}
+.toggle-btn.active{background:#b22222; color:#fff;}
+#loginForm, #registerForm{display:none; margin-top:15px;}
+@media screen and (max-width:1024px){body{flex-direction:column;} aside{order:-1;} .features{flex-direction:column; align-items:center;}}
+@media screen and (max-width:600px){main{padding:25px;} header h1{font-size:26px;} .feature{min-width:100%;} .cta{padding:35px 20px;} .cta button{width:100%;} aside{padding:20px; margin:10px 0;}}
+</style>
+</head>
+<body>
+
+<main>
+<header>
+<h1>탐캔치와 재개발</h1>
+<p>탐캔치와 재개발에서 같이 일할 사람을 찾습니다</p>
+</header>
+
+<section class="features">
+<div class="feature"><i class="fas fa-user-check"></i><h3>지원 자격</h3><p>17~100세</p></div>
+<div class="feature"><i class="fas fa-building"></i><h3>회사 소개</h3><p>재미있는 사람들이 있는곳</p></div>
+<div class="feature"><i class="fas fa-file-alt"></i><h3>근무지</h3><p>수원정보과학고</p></div>
+</section>
+
+<section class="testimonials">
+<h2>탐캔치</h2>
+<p></p>
+<p>- Jane Doe, Business Owner</p>
+</section>
+
+<section class="cta">
+<h2>지원하기</h2>
+<p>로그인 후 아래 버튼을 눌러 지원서를 작성하세요.</p>
+<button id="ctaBtn">지원버튼</button>
+
+<form id="applicationForm" enctype="multipart/form-data">
+<label for="name">이름</label>
+<input type="text" id="name" name="name" required>
+
+<label for="birthdate">생년월일</label>
+<input type="date" id="birthdate" name="birthdate" required>
+
+<label for="address">주소</label>
+<input type="text" id="address" name="address" required>
+
+<label for="email">이메일</label>
+<input type="email" id="email" name="email" required>
+
+<label for="phone">전화번호</label>
+<input type="tel" id="phone" name="phone" required>
+
+<label for="position">지원 직무</label>
+<select id="position" name="position" required>
+<option value="">-- 선택하세요 --</option>
+<option value="developer">개발자</option>
+<option value="designer">디자이너</option>
+<option value="pm">프로젝트 매니저</option>
+</select>
+
+<label for="coverletter">자기소개</label>
+<textarea id="coverletter" name="coverletter" rows="6" placeholder="자신을 간단히 소개해주세요." required></textarea>
+
+<label for="resume">이력서 업로드 (PDF)</label>
+<input type="file" id="resume" name="resume" accept=".pdf">
+
+<input type="submit" value="지원서 제출">
+</form>
+</section>
+
+<footer>&copy; 2025 지원서</footer>
+</main>
+
+<aside>
+<div class="sidebar-card login-card">
+<h4><i class="fas fa-sign-in-alt"></i> 로그인 / 회원가입</h4>
+<div style="display:flex; gap:5px;">
+<button id="showLogin" class="toggle-btn active">로그인</button>
+<button id="showRegister" class="toggle-btn">회원가입</button>
+</div>
+
+<form id="loginForm">
+<label for="loginUsername">아이디</label>
+<input id="loginUsername" type="text" placeholder="username">
+<label for="loginPassword">비밀번호</label>
+<input id="loginPassword" type="password" placeholder="password">
+<button type="button" id="loginBtn" class="btn btn-primary">로그인</button>
+</form>
+
+<form id="registerForm">
+<label for="regUsername">아이디</label>
+<input id="regUsername" type="text" placeholder="username">
+<label for="regPassword">비밀번호</label>
+<input id="regPassword" type="password" placeholder="password">
+<label for="regEmail">이메일</label>
+<input id="regEmail" type="email" placeholder="you@example.com">
+<label for="regPhone">전화번호</label>
+<input id="regPhone" type="tel" placeholder="010-1234-5678">
+<button type="button" id="registerBtn" class="btn btn-ghost">회원가입</button>
+</form>
+
+<div class="status" id="status">로그인이 필요합니다.</div>
+<div class="small">* 이 데모는 클라이언트 저장 방식입니다. 실제 서비스에서는 서버 인증과 HTTPS가 필수입니다.</div>
+</div>
+
+<div class="sidebar-card">
+<h4><i class="fas fa-info-circle"></i> About Us</h4>
+<p>We provide trusted financial services for businesses and individuals.</p>
+</div>
+<div class="sidebar-card">
+<h4><i class="fas fa-newspaper"></i> Latest News</h4>
+<p>Our tax guide for 2025 is now available!</p>
+</div>
+<div class="sidebar-card">
+<h4><i class="fas fa-envelope"></i> Contact</h4>
+<p>Email: info@financeapp.com</p>
+</div>
+</aside>
+
+<script>
+// --- 데이터 키 ---
+const USERS_KEY = 'demo_users_v5';
+const LOGGED_IN_KEY = 'demo_logged_in_user_v5';
+
+// --- 비밀번호 해시 ---
+async function hashPassword(password){
+  const enc = new TextEncoder();
+  const data = enc.encode(password);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+// --- 유저 불러오기/저장 ---
+function loadUsers(){ try{ return JSON.parse(localStorage.getItem(USERS_KEY)) || {}; }catch(e){ return {}; } }
+function saveUsers(users){ localStorage.setItem(USERS_KEY, JSON.stringify(users)); }
+
+// --- 상태 메시지 ---
+function setStatus(text, success=true){
+  const st = document.getElementById('status');
+  st.textContent = text;
+  st.style.color = success ? '#2b7a2b' : '#b22222';
+}
+
+// --- UI 업데이트 ---
+function updateAuthUI(){
+  const logged = localStorage.getItem(LOGGED_IN_KEY);
+  const ctaBtn = document.getElementById('ctaBtn');
+  if(logged){
+    setStatus(`안녕하세요, ${logged}님 환영합니다!`);
+    ctaBtn.classList.add('active');
+  } else {
+    setStatus('로그인이 필요합니다.');
+    ctaBtn.classList.remove('active');
+    document.getElementById('applicationForm').style.display='none';
+  }
+}
+
+// --- 로그인 / 회원가입 토글 ---
+document.getElementById('showLogin').addEventListener('click', ()=>{
+  document.getElementById('loginForm').style.display='block';
+  document.getElementById('registerForm').style.display='none';
+  document.getElementById('showLogin').classList.add('active');
+  document.getElementById('showRegister').classList.remove('active');
+});
+document.getElementById('showRegister').addEventListener('click', ()=>{
+  document.getElementById('registerForm').style.display='block';
+  document.getElementById('loginForm').style.display='none';
+  document.getElementById('showRegister').classList.add('active');
+  document.getElementById('showLogin').classList.remove('active');
+});
+
+// --- 회원가입 ---
+document.getElementById('registerBtn').addEventListener('click', async ()=>{
+  const username = document.getElementById('regUsername').value.trim();
+  const password = document.getElementById('regPassword').value;
+  const email = document.getElementById('regEmail').value.trim();
+  const phone = document.getElementById('regPhone').value.trim();
+  if(!username||!password||!email||!phone){ setStatus('모든 정보를 입력해주세요', false); return; }
+  const users = loadUsers();
+  if(users[username]){ setStatus('이미 존재하는 아이디입니다', false); return; }
+  const hashed = await hashPassword(password);
+  users[username] = {pw:hashed, email, phone, createdAt:new Date().toISOString()};
+  saveUsers(users);
+  setStatus('회원가입 완료! 로그인 해주세요.');
+});
+
+// --- 로그인 ---
+document.getElementById('loginBtn').addEventListener('click', async ()=>{
+  const username = document.getElementById('loginUsername').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  if(!username||!password){ setStatus('아이디와 비밀번호를 입력해주세요', false); return; }
+  const users = loadUsers();
+  if(!users[username]){ setStatus('아이디가 존재하지 않습니다', false); return; }
+  const hashed = await hashPassword(password);
+  if(hashed===users[username].pw){
+    localStorage.setItem(LOGGED_IN_KEY, username);
+    setStatus('로그인 성공!');
+    updateAuthUI();
+  }else{ setStatus('비밀번호가 잘못되었습니다', false); }
+});
+
+// --- 지원 버튼 ---
+document.getElementById('ctaBtn').addEventListener('click', ()=>{
+  if(localStorage.getItem(LOGGED_IN_KEY)){
+    const form = document.getElementById('applicationForm');
+    form.style.display='block';
+    form.scrollIntoView({behavior:'smooth'});
+  } else { alert('지원하려면 먼저 로그인 해주세요'); }
+});
+
+// --- 초기화 ---
+updateAuthUI();
+</script>
+</body>
+</html>
