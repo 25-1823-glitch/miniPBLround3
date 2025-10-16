@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>탐캔치 지원 페이지</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+html, body {height:100%;overflow-x:hidden;overflow-y:auto;color:#fff;}
+body::before{
+  content:"";position:fixed;top:0;left:0;width:100%;height:100%;
+  background:radial-gradient(circle at 30% 20%,rgba(255,70,70,0.4),transparent 70%),
+             radial-gradient(circle at 70% 80%,rgba(200,30,30,0.35),transparent 70%),
+             linear-gradient(135deg,#2a0a0a,#1a0b0b,#000);
+  background-size:200% 200%;
+  animation:moveBG 18s ease-in-out infinite alternate;
+  z-index:-3;filter:blur(22px);
+}
+@keyframes moveBG{0%{background-position:0% 50%;}100%{background-position:100% 50%;}}
+body{display:flex;flex-direction:row;}
+main{flex:3;padding:50px;background:rgba(255,50,50,0.1);border-radius:25px;margin:20px;box-shadow:0 15px 40px rgba(255,50,50,0.3);backdrop-filter:blur(15px);color:#fff;}
+header{text-align:center;margin-bottom:40px;}
+header img{display:block;margin:0 auto 20px auto;filter:drop-shadow(0 0 10px #ff4a4a);max-width:180px;}
+header h1{font-size:42px;background:linear-gradient(90deg,#ff4a4a,#b83939,#ff1a1a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:800;text-shadow:0 2px 5px rgba(0,0,0,0.4);}
+header p{margin-top:15px;font-size:17px;color:#f3f3f3;}
+.features{display:flex;gap:25px;flex-wrap:wrap;justify-content:center;}
+.feature{flex:1;min-width:220px;background:rgba(255,50,50,0.1);padding:25px;border-radius:20px;text-align:center;box-shadow:0 0 25px rgba(255,50,50,0.2);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;}
+.feature:hover{transform:translateY(-10px);box-shadow:0 0 35px rgba(255,70,70,0.5);}
+.feature i{font-size:30px;color:#ff4a4a;margin-bottom:12px;}
+.feature h3{margin-bottom:12px;color:#ff4a4a;font-weight:600;}
+.feature p{font-size:15px;color:#eee;}
+.testimonials{margin:50px 0;padding:30px;background:rgba(255,50,50,0.08);border-radius:25px;text-align:center;box-shadow:0 0 25px rgba(255,50,50,0.25);}
+.testimonials h2{color:#ff4a4a;margin-bottom:20px;font-weight:700;}
+.testimonials p{font-style:italic;color:#ddd;margin-bottom:10px;}
+.cta{background:linear-gradient(135deg,#b83939,#6a1a1a);color:#fff;text-align:center;padding:50px 25px;border-radius:25px;margin:50px 0;box-shadow:0 15px 35px rgba(255,50,50,0.4);}
+.cta h2{font-size:32px;margin-bottom:15px;font-weight:700;}
+.cta p{font-size:17px;margin-bottom:25px;}
+.cta button{padding:18px 40px;border:none;border-radius:50px;cursor:pointer;background:linear-gradient(135deg,#ff1a1a,#b83939);color:#fff;font-size:17px;font-weight:600;transition:all 0.3s ease;box-shadow:0 6px 20px rgba(255,50,50,0.4);}
+.cta button.active{background:linear-gradient(135deg,#ff4a4a,#b83939);}
+.cta button:hover{background:linear-gradient(135deg,#ff4a4a,#d24a4a);transform:scale(1.05);box-shadow:0 8px 20px rgba(255,70,70,0.5);}
+aside{flex:1;background:rgba(255,50,50,0.1);padding:25px;border-radius:25px;margin:20px;box-shadow:0 0 30px rgba(255,50,50,0.3);color:#fff;backdrop-filter:blur(15px);}
+.sidebar-card{background:rgba(255,50,50,0.1);padding:20px;margin-bottom:25px;border-radius:20px;text-align:left;transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;}
+.sidebar-card:hover{transform:translateY(-5px);box-shadow:0 0 25px rgba(255,70,70,0.5);}
+.sidebar-card h4{margin-bottom:12px;color:#ff4a4a;font-weight:600;}
+.sidebar-card p{font-size:14px;color:#ddd;}
+#loginForm,#registerForm{display:none;flex-direction:column;gap:8px;opacity:0;transform:translateY(15px);pointer-events:none;transition:opacity 0.4s ease, transform 0.4s ease;}
+#loginForm.active,#registerForm.active{display:flex;opacity:1;transform:translateY(0);pointer-events:auto;}
+#loginForm input,#registerForm input,#registerForm select,#registerForm textarea{width:100%;padding:10px;border:1px solid rgba(255,255,255,0.3);border-radius:8px;background:rgba(255,255,255,0.15);color:#fff;transition:0.3s;}
+#loginForm input:focus,#registerForm input:focus,#registerForm select:focus,#registerForm textarea:focus{border-color:#ff4a4a;box-shadow:0 0 12px rgba(255,70,70,0.5);outline:none;}
+#loginForm button,#registerForm button{background:#b83939;color:#fff;border:none;padding:12px;border-radius:10px;cursor:pointer;font-weight:600;transition:all 0.3s ease;}
+#loginForm button:hover,#registerForm button:hover{background:#d24a4a;box-shadow:0 0 15px rgba(255,70,70,0.5);transform:translateY(-2px);}
+.toggle-btn{background:#222;color:#fff;border:none;border-radius:8px;padding:8px 15px;font-weight:500;transition:all 0.3s ease;cursor:pointer;}
+.toggle-btn.active{background:#b83939;color:#fff;box-shadow:0 0 12px rgba(255,70,70,0.5);}
+.toggle-btn:hover{background:#d24a4a;}
+#applicationForm{display:none;margin-top:30px;background:rgba(255,50,50,0.12);padding:20px;border-radius:15px;box-shadow:0 0 25px rgba(255,50,50,0.3);}
+#applicationForm label{font-weight:bold;display:block;margin-top:10px;color:#ff4a4a;}
+#applicationForm input,#applicationForm textarea,#applicationForm select{width:100%;padding:8px;margin-top:5px;border:2px solid #b83939;border-radius:5px;outline:none;background:rgba(255,255,255,0.1);color:#fff;}
+#applicationForm input[type="submit"]{background-color:#b83939;color:white;border:none;cursor:pointer;margin-top:10px;border-radius:8px;transition:all 0.3s ease;}
+#applicationForm input[type="submit"]:hover{background-color:#d24a4a;transform:scale(1.05);box-shadow:0 0 15px rgba(255,70,70,0.5);}
+.status{text-align:center;margin-top:10px;color:#ff4a4a;font-weight:600;}
+footer{text-align:center;padding:30px;margin-top:40px;color:#ccc;font-size:14px;}
+@media screen and (max-width:1024px){body{flex-direction:column;}aside{order:-1;}.features{flex-direction:column;align-items:center;}}
+@media screen and (max-width:600px){main{padding:25px;}header h1{font-size:26px;}.feature{min-width:100%;}.cta{padding:35px 20px;}.cta button{width:100%;}aside{padding:20px;margin:10px 0;}}
+</style>
+</head>
+<body>
+<main>
+<header>
+<img src="https://th.bing.com/th/id/OIP.y3C6I6ArcKW5eZ92rCVwfgAAAA?w=178&h=180&c=7&r=0&o=7&pid=1.7&rm=3" alt="탐켄치">
+<h1>탐캔치 IT소프트웨어 채용</h1>
+<p>혁신적인 개발팀과 함께 미래를 만드는 사람을 찾습니다</p>
+</header>
+
+<section class="features">
+<div class="feature"><i class="fas fa-code"></i><h3>지원 자격</h3><p>17세 이상 누구나, 열정이 있다면 환영!</p></div>
+<div class="feature"><i class="fas fa-microchip"></i><h3>기술 분야</h3><p>웹, 앱, AI, 게임, 클라우드 개발</p></div>
+<div class="feature"><i class="fas fa-map-marker-alt"></i><h3>근무지</h3><p>수원정보과학고</p></div>
+</section>
+
+<section class="testimonials">
+<h2>탐캔치의 비전</h2>
+<p>"기술로 세상을 이롭게 만든다"</p>
+<p>- TMC CEO</p>
+</section>
+
+<section class="cta">
+<h2>지원하기</h2>
+<p>로그인 후 아래 버튼을 눌러 지원서를 작성하세요.</p>
+<button id="ctaBtn">지원버튼</button>
+<form id="applicationForm" enctype="multipart/form-data">
+<label for="name">이름</label><input type="text" id="name" name="name" required>
+<label for="email">이메일</label><input type="email" id="email" name="email" required>
+<label for="position">지원 직무</label>
+<select id="position" name="position" required>
+<option value="">-- 선택하세요 --</option>
+<option value="developer">개발자</option>
+<option value="designer">디자이너</option>
+<option value="pm">프로젝트 매니저</option>
+</select>
+<label for="coverletter">자기소개</label><textarea id="coverletter" name="coverletter" rows="6" required></textarea>
+<input type="submit" value="지원서 제출">
+</form>
+</section>
+
+<footer>&copy; 2025 탐캔치 IT소프트웨어</footer>
+</main>
+
+<aside>
+<div class="sidebar-card login-card">
+<h4><i class="fas fa-sign-in-alt"></i> 로그인 / 회원가입</h4>
+<div style="display:flex;gap:5px;margin-bottom:10px;">
+<button id="showLogin" class="toggle-btn active">로그인</button>
+<button id="showRegister" class="toggle-btn">회원가입</button>
+<button id="logoutBtn" class="toggle-btn" style="display:none;">로그아웃</button>
+</div>
+
+<form id="loginForm" class="active">
+<label for="loginUsername">아이디</label><input id="loginUsername" type="text" placeholder="username">
+<label for="loginPassword">비밀번호</label><input id="loginPassword" type="password" placeholder="password">
+<button type="button" id="loginBtn">로그인</button>
+</form>
+
+<form id="registerForm">
+<label for="regUsername">아이디</label><input id="regUsername" type="text" placeholder="username">
+<label for="regPassword">비밀번호</label><input id="regPassword" type="password" placeholder="password">
+<label for="regEmail">이메일</label><input id="regEmail" type="email" placeholder="you@example.com">
+<label for="regPhone">전화번호</label><input id="regPhone" type="tel" placeholder="010-1234-5678">
+<button type="button" id="registerBtn">회원가입</button>
+</form>
+
+<div class="status" id="status">로그인이 필요합니다.</div>
+</div>
+
+<div class="sidebar-card">
+<h4><i class="fas fa-info-circle"></i> 회사 소개</h4>
+<p>탐캔치는 미래지향적인 IT 솔루션을 제공합니다.</p>
+<div class="sidebar-card">
+  <h4><i class="fas fa-info-circle"></i> 회사 소개</h4>
+  <p>탐캔치는 미래지향적인 IT 솔루션을 제공합니다.</p>
+</div>
+<div class="sidebar-card">
+  <h4><i class="fas fa-comment-dots"></i> 제작 과정 및 특징</h4>
+  <p>이 코드에서 회사소개 밑에 특히, 회원가입 창이 보이지 않고 공백이 생기던 문제는 디버깅 과정을 통해 해결하며 기능적 완성도를 더욱 끌어올릴 수 있었고, 아이디 저장 기능까지 추가해 사용자 편의성을 높였습니다.</p>
+  <p>또한, 다른 팀과 차별화된 요소로 로그인, 회원가입, 로그아웃 기능을 직접 구현하여 사용자 경험을 고려한 인터랙션 요소도 담아냈습니다. 이를 통해 사이트의 실용성을 한층 높일 수 있었습니다.</p>
+  <p>이번 사이트 제작에서는 김지훈이 콘텐츠의 기획과 문구 작성에 집중하며, 전체적인 글의 톤과 핵심 포인트를 잡는 역할을 맡았습니다. 디자인 작업에는 AI 기술을 적극 활용해 시각적인 완성도를 높였고, 역할에 따라 체계적인 협업을 통해 콘텐츠와 디자인이 자연스럽게 어우러지는 사이트를 완성하고자 노력했습니다.</p>
+</div>
+
+</div>
+</aside>
+
+<script>
+const USERS_KEY='demo_users_v5';
+const SAVED_ID_KEY='saved_username_v5';
+const LOGGED_IN_KEY='demo_logged_in_user_v5';
+
+async function hashPassword(password){
+  const enc=new TextEncoder();
+  const data=enc.encode(password);
+  const hashBuffer=await crypto.subtle.digest('SHA-256',data);
+  return Array.from(new Uint8Array(hashBuffer)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+function loadUsers(){try{return JSON.parse(localStorage.getItem(USERS_KEY))||{};}catch(e){return {};}}
+
+function saveUsers(users){localStorage.setItem(USERS_KEY,JSON.stringify(users));}
+
+function setStatus(text,success=true){
+  const st=document.getElementById('status');
+  st.textContent=text;
+  st.style.color=success?'#ff4a4a':'#ff5555';
+}
+
+function updateAuthUI(){
+  const logged=sessionStorage.getItem(LOGGED_IN_KEY);
+  const ctaBtn=document.getElementById('ctaBtn');
+  const logoutBtn=document.getElementById('logoutBtn');
+  if(logged){
+    setStatus(`안녕하세요, ${logged}님 환영합니다!`);
+    ctaBtn.classList.add('active');
+    logoutBtn.style.display='inline-block';
+  }else{
+    setStatus('로그인이 필요합니다.',false);
+    ctaBtn.classList.remove('active');
+    document.getElementById('applicationForm').style.display='none';
+    logoutBtn.style.display='none';
+  }
+}
+
+// 페이지 로드 시 저장된 아이디 불러오기
+window.addEventListener('DOMContentLoaded',()=>{
+  const savedID = localStorage.getItem(SAVED_ID_KEY);
+  if(savedID) document.getElementById('loginUsername').value = savedID;
+});
+
+document.getElementById('showLogin').addEventListener('click',()=>{
+  document.getElementById('loginForm').classList.add('active');
+  document.getElementById('registerForm').classList.remove('active');
+  document.getElementById('showLogin').classList.add('active');
+  document.getElementById('showRegister').classList.remove('active');
+});
+
+document.getElementById('showRegister').addEventListener('click',()=>{
+  document.getElementById('registerForm').classList.add('active');
+  document.getElementById('loginForm').classList.remove('active');
+  document.getElementById('showRegister').classList.add('active');
+  document.getElementById('showLogin').classList.remove('active');
+});
+
+// 회원가입
+document.getElementById('registerBtn').addEventListener('click',async()=>{
+  const username=document.getElementById('regUsername').value.trim();
+  const password=document.getElementById('regPassword').value;
+  const email=document.getElementById('regEmail').value.trim();
+  const phone=document.getElementById('regPhone').value.trim();
+  if(!username||!password||!email||!phone){setStatus('모든 정보를 입력해주세요',false);return;}
+  const users=loadUsers();
+  if(users[username]){setStatus('이미 존재하는 아이디입니다',false);return;}
+  const hashed=await hashPassword(password);
+  users[username]={pw:hashed,email,phone,createdAt:new Date().toISOString()};
+  saveUsers(users);
+  sessionStorage.setItem(LOGGED_IN_KEY,username);
+  localStorage.setItem(SAVED_ID_KEY,username);
+  setStatus('회원가입 완료! 지원서를 작성할 수 있습니다.');
+  updateAuthUI();
+});
+
+// 로그인
+document.getElementById('loginBtn').addEventListener('click', async ()=>{
+  const username=document.getElementById('loginUsername').value.trim();
+  const password=document.getElementById('loginPassword').value;
+  if(!username||!password){setStatus('아이디와 비밀번호를 입력해주세요',false);return;}
+  const users=loadUsers();
+  if(!users[username]){setStatus('아이디가 존재하지 않습니다',false);return;}
+  const hashed=await hashPassword(password);
+  if(hashed===users[username].pw){
+    sessionStorage.setItem(LOGGED_IN_KEY,username);
+    localStorage.setItem(SAVED_ID_KEY,username);
+    setStatus('로그인 성공!');
+    updateAuthUI();
+  }else{setStatus('비밀번호가 잘못되었습니다',false);}
+});
+
+// 로그아웃
+document.getElementById('logoutBtn').addEventListener('click',()=>{
+  sessionStorage.removeItem(LOGGED_IN_KEY);
+  updateAuthUI();
+});
+
+// 지원 버튼
+document.getElementById('ctaBtn').addEventListener('click',()=>{
+  if(sessionStorage.getItem(LOGGED_IN_KEY)){
+    const form=document.getElementById('applicationForm');
+    form.style.display='block';
+    form.scrollIntoView({behavior:'smooth'});
+  }else{alert('지원하려면 먼저 로그인 해주세요');}
+});
+
+updateAuthUI();
+</script>
+</body>
+</html>
